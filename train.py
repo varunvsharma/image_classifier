@@ -49,3 +49,55 @@ class classifier(nn.Module):
         # Pass final hidden layer to output layer and log_softmax activation
         x = F.log_softmax(self.output(x), dim=1)
         return x
+
+def build_model(output_size, hidden_units=[1024, 512, 256], arch='resnet50'):
+    """Build full model from pretrained network.
+    
+    Keyword arguments:
+    arch -- pretrained network architecture
+    """
+    # Download pretrained model
+    model = getattr(models, arch)(pretrained=True)
+    
+    # Freeze model parameters
+    for param in model.parameters():
+        param.requires_grad = False
+
+    # Set up a dictionary that contains the names of pretrained network groups
+    # and the names of their classifiers
+    clf_dict = {
+        'resnet': 'fc',
+        'vgg': 'classifier',
+        'alexnet': 'classifier',
+        'squeeznet': 'classifier',
+        'densenet': 'classifier',
+        'inception': 'fc',
+        'googlenet': 'fc',
+        'shufflenet': 'fc',
+        'mobilenet': 'fc',
+        'resnext': 'fc',
+        'wide_resnet': 'fc',
+        'mnasnet': 'classifier'
+        }
+
+    # Get the fully connected classifier's input features
+    for network, clf in clf_dict.items():
+        if network in arch:
+            clf_name = clf
+            clf_net = getattr(model, clf)
+            if type(clf_net).__name__ == 'Sequential':
+                input_size = clf_net[0].in_features
+            elif type(clf_net).__name__ == 'Linear':
+                input_size = clf_net.in_features
+
+    # Build new classifier
+    fc_clf = classifier(
+        input_size=input_size, \
+        output_size=output_size, \
+        hidden_layers=hidden_units)
+
+    # Replace the pretrained network's classifier with new classifier
+    setattr(model, clf_name, fc_clf)
+    
+    # Return the modified model
+    return model
