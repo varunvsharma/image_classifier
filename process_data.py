@@ -8,7 +8,7 @@ from torchvision import transforms, models, datasets
 from PIL import Image
 
 def load_data(data_dir):
-    """Load the training data and return datasets for training, testing and validation.
+    """Load the training data and return datasets for training, validation and testing.
 
     Keyword arguments:
     data_dir -- Directory containing training data.
