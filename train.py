@@ -117,7 +117,7 @@ def train(model, train_dataset, valid_dataset, epochs, learning_rate, gpu, save_
                             'learning_rate': learning_rate,
                             'class_to_idx': train_dataset.class_to_idx
                         }
-                        torch.save(checkpoint, save_dir+'/checkpoint.pth')
+                        torch.save(checkpoint, save_dir+'checkpoint.pth')
 
 
 def main():
@@ -132,7 +132,8 @@ def main():
     )
     parser.add_argument(
         '--save_dir',
-        action='store', 
+        action='store',
+        default='', 
         help='set directory for saving model checkpoints'
     )
     parser.add_argument(
