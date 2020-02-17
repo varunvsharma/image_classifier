@@ -168,7 +168,7 @@ def main():
     output_size = len(train_dataset.classes)
     model = custom_model.build_model(
         output_size=output_size,
-        hidden_units=args.hidden_unts,
+        hidden_units=args.hidden_units,
         arch=args.arch
     )
     train(
