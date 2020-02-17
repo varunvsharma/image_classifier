@@ -35,14 +35,18 @@ def train(model, train_dataset, valid_dataset, epochs, learning_rate, gpu, save_
     # Initialize minimum validation loss
     valid_loss_min = np.Inf
 
+    # Set print steps value
+    print_every = 5
+
     # Use training and validation datasets to create data loaders
     trainloader = DataLoader(train_dataset, batch_size=64, shuffle=True)
     validloader = DataLoader(valid_dataset, batch_size=64, shuffle=True)
 
     for e in range(epochs):
 
-        # Initialize running loss
+        # Initialize running loss and steps
         running_loss = 0
+        steps = 0
 
         # Training Pass
         for images, labels in trainloader:
