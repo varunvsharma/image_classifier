@@ -10,6 +10,18 @@ import process_data
 import argparse
 
 def train(model, arch, train_dataset, valid_dataset, epochs, learning_rate, gpu, save_dir):
+    """Train neural network.
+
+    Keywords arguments:
+    model -- the neural network to be trained
+    arch -- the pretrained neural network architecture used
+    train_dataset -- dataset for training
+    valid_dataset -- dataset for validation
+    epochs -- number of training iterations
+    learning_rate -- multiplier used to determine the step size during optimization
+    gpu -- flag for using GPUs for training
+    save_dir -- path to directory where model checkpoints are to be saved
+    """
     # Set default device to CPU
     device = 'cpu'
 
