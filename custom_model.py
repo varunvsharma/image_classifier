@@ -111,9 +111,9 @@ def load_checkpoint(checkpoint):
     checkpoint = torch.load(checkpoint)
     
     # Rebuild model
-    model = custom_model.build_model(
-        output_size = checkpoint['output_size']
-        hidden_units = checkpoint['hidden_layers']
+    model = build_model(
+        output_size = checkpoint['output_size'],
+        hidden_units = checkpoint['hidden_layers'],
         arch = checkpoint['arch']
     )
     
