@@ -114,7 +114,7 @@ def train(model, train_dataset, valid_dataset, epochs, learning_rate, gpu, save_
                             'learning_rate': learning_rate,
                             'class_to_idx': train_dataset.class_to_idx
                         }
-                        torch.save(checkpoint, save_dir)
+                        torch.save(checkpoint, save_dir+'/checkpoint.pth')
 
 
 def main():
