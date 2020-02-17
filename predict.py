@@ -11,7 +11,10 @@ def predict(image_path, model_checkpoint, top_k, category_name, gpu):
     
     Keyword arguments:
     image_path -- file path of the image
-    model -- PyTorch model checkpoint
+    model_checkpoint -- pytorch model checkpoint
+    top_k -- number of most likely classes
+    category_name -- class to name map
+    gpu -- flag to use gpu for inference
     ''' 
     # Open image using PIL
     image = Image.open(image_path)
