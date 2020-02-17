@@ -9,7 +9,7 @@ import custom_model
 import process_data
 import argparse
 
-def train(model, train_dataset, valid_dataset, epochs, learning_rate, gpu, save_dir):
+def train(model, arch, train_dataset, valid_dataset, epochs, learning_rate, gpu, save_dir):
     # Set default device to CPU
     device = 'cpu'
 
@@ -111,6 +111,7 @@ def train(model, train_dataset, valid_dataset, epochs, learning_rate, gpu, save_
                             'output_size': model.fc.output.out_features,
                             'hidden_layers': [layer.out_features for layer in model.fc.hidden],
                             'drop_p': 0.2,
+                            'arch': arch,
                             'model_state_dict': model.state_dict(),
                             'optimizer_state_dict': optimizer.state_dict(),
                             'epoch': e,
@@ -181,6 +182,7 @@ def main():
     )
     train(
         model=model,
+        arch=args.arch,
         train_dataset=train_dataset,
         valid_dataset=valid_dataset,
         epochs=args.epochs,
