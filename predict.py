@@ -7,30 +7,6 @@ import custom_model
 import process_data
 import argparse
 
-def load_checkpoint(checkpoint):
-    """Rebuild model from checkpoint.
-
-    Keyword arguments:
-    checkpoint -- path to the checkpoint file
-    """
-    # Load checkpoint
-    checkpoint = torch.load(checkpoint)
-    
-    # Rebuild model
-    model = custom_model.build_model(
-        output_size = checkpoint['output_size']
-        hidden_units = checkpoint['hidden_layers']
-        arch = checkpoint['arch']
-    )
-    
-    # Load model's state dict
-    model.load_state_dict(checkpoint['model_state_dict'])
-
-    # Attach class to index mapping in checkpoint to model
-    model.class_to_idx = checkpoint['class_to_idx']
-    
-    return model
-     
 def main():
 
     parser = argparse.ArgumentParser(
