@@ -98,11 +98,13 @@ def train(model, train_dataset, valid_dataset, epochs, learning_rate, gpu, save_
 
                     # Check if validation loss is less than the minimum validation loss
                     if valid_loss < valid_loss_min:
-                        valid_loss_min = valid_loss
-
                         # Display change in minimum validation loss
                         # Save checkpoint
-                        print(f'New minimum validation loss {valid_loss_min} --> {valid_loss} | Saving Checkpoint')
+                        print(f'New minimum validation loss reached {valid_loss_min} --> {valid_loss} | Saving Checkpoint')
+
+                        # Replace minimum validation loss with new minimum
+                        valid_loss_min = valid_loss
+
                         checkpoint = {
                             'input_size': model.fc.hidden[0].in_features,
                             'output_size': model.fc.output.out_features,
