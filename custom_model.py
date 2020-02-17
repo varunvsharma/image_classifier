@@ -108,7 +108,7 @@ def load_checkpoint(checkpoint):
     checkpoint -- path to the checkpoint file
     """
     # Load checkpoint
-    checkpoint = torch.load(checkpoint)
+    checkpoint = torch.load(checkpoint, map_location=lambda storage, loc: storage)
     
     # Rebuild model
     model = build_model(
