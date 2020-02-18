@@ -47,6 +47,9 @@ def predict(image_path, model_checkpoint, top_k, category_name, gpu):
     ps = torch.exp(log_ps)
     top_ps, top_classes = ps.topk(top_k, dim=1)
     
+    # Convert top_ps to list
+    top_ps = list(top_ps.view(-1).detach().numpy())
+    
     # Get index to class mapping
     idx_to_class = {value: key for key, value in model.class_to_idx.items()}
     top_classes = [idx_to_class[c.item()] for c in top_classes[0]]
@@ -106,7 +109,7 @@ def main():
         category_name=args.category_names,
         gpu=args.gpu  
     )
-    print('Top predictions')
+    print('Top predictions:')
     for i in range(len(top_ps)):
         print(f'Class: {top_classes[i]} | Probability: {top_ps[i]:.3f}')
 
