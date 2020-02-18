@@ -48,6 +48,7 @@ def predict(image_path, model_checkpoint, top_k, category_name, gpu):
     top_ps, top_classes = ps.topk(top_k, dim=1)
     
     # Convert top_ps to list
+    top_ps = top_ps.to('cpu')
     top_ps = list(top_ps.view(-1).detach().numpy())
     
     # Get index to class mapping
